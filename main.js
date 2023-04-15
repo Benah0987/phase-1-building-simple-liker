@@ -2,54 +2,42 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
-//adding a click event to all elements with class "like"
-const likeBtn = document.querySelectorAll('.like');
+// Select all like buttons
+const likeBtns = document.querySelectorAll('.like');
 
-likeBtn.forEach(btn => {
-  //each like btn will behave this awy if clicked
-  btn.addEventListener('click', ()=>{
-
-    //changing the modal message
+// Add a click event listener to each like button
+likeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    
+    // Reset the modal message to hide any previous error message
     const modal = document.getElementById('modal');
     modal.classList.add('hidden');
-
-    const modalMeso = document.getElementById('modal-message');
-    modalMeso.innerText = "";
-
-    //changing the heart based on the current state
-    if(btn.querySelector('.like-glyph').innerText === EMPTY_HEART)
-    {
+    const modalMessage = document.getElementById('modal-message');
+    modalMessage.innerText = '';
+    
+    // Change the heart icon to full or empty depending on the current state
+    if (btn.querySelector('.like-glyph').innerText === EMPTY_HEART) {
       btn.querySelector('.like-glyph').innerText = FULL_HEART;
       btn.classList.add('activated');
-
-      //mimic server call to like the post
-      //calling the function
+      
+      // Mimic server call to like the post
       mimicServerCall()
-
         .then(response => console.log(response))
-        //the callback function to execute when the promise is rejected
-        .catch(error =>{
-
-          //display the error message
+        .catch(error => {
+          // Display error message on the modal
           modal.classList.remove('hidden');
-          modalMeso.innerText = error;
-
-          //revert heart icon 
+          modalMessage.innerText = error;
+          
+          // Revert heart icon back to empty and remove activated class
           btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
           btn.classList.remove('activated');
-        } 
-       
-
- }
- else {
-  btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
-  btn.classList.remove('activated');
-
-
-  })
-})
-
+        });
+    } else {
+      btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
+      btn.classList.remove('activated');
+    }
+  });
+});
 
 
 

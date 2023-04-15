@@ -11,10 +11,13 @@ body h1 {
   color: #FFF;
 }
 
+
 body > header {
   margin-bottom: 5%;
 }
-
+.hidden{
+  display: none;
+}
 article.media-post {
   border: solid 1px #000;
   margin: 2% 3%;
