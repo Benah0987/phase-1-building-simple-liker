@@ -1,6 +1,5 @@
-// Defining text characters for the empty and full hearts for you to use later.
-const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
+const EMPTY_HEART = '♡'
 
 // Select all like buttons
 const likeBtns = document.querySelectorAll('.like');
@@ -18,7 +17,7 @@ likeBtns.forEach(btn => {
     // Change the heart icon to full or empty depending on the current state
     if (btn.querySelector('.like-glyph').innerText === EMPTY_HEART) {
       btn.querySelector('.like-glyph').innerText = FULL_HEART;
-      btn.classList.add('activated');
+      btn.classList.add('activated', 'activated-heart');
       
       // Mimic server call to like the post
       mimicServerCall()
@@ -31,10 +30,16 @@ likeBtns.forEach(btn => {
           // Revert heart icon back to empty and remove activated class
           btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
           btn.classList.remove('activated');
+        })
+        .finally(() => {
+          // Hide modal after 3 seconds
+          setTimeout(() => {
+            modal.classList.add('hidden');
+          }, 3000);
         });
     } else {
       btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
-      btn.classList.remove('activated');
+      btn.classList.remove('activated', 'activated-heart');
     }
   });
 });
