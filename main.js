@@ -3,6 +3,19 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+//adding a click event to all elements with class "like"
+const likeBtn = document.querySelectorAll('.like');
+
+likeBtn.forEach(btn => {
+  btn.addEventListener('click', ()=>{
+
+    //changing the modal message
+    const modal = document.getElementById('modal');
+    modal.classList.add('hidden');
+    
+  })
+})
+
 
 
 
