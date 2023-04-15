@@ -7,12 +7,46 @@ const FULL_HEART = '♥'
 const likeBtn = document.querySelectorAll('.like');
 
 likeBtn.forEach(btn => {
+  //each like btn will behave this awy if clicked
   btn.addEventListener('click', ()=>{
 
     //changing the modal message
     const modal = document.getElementById('modal');
     modal.classList.add('hidden');
-    
+
+    const modalMeso = document.getElementById('modal-message');
+    modalMeso.innerText = "";
+
+    //changing the heart based on the current state
+    if(btn.querySelector('.like-glyph').innerText === EMPTY_HEART)
+    {
+      btn.querySelector('.like-glyph').innerText = FULL_HEART;
+      btn.classList.add('activated');
+
+      //mimic server call to like the post
+      //calling the function
+      mimicServerCall()
+
+        .then(response => console.log(response))
+        //the callback function to execute when the promise is rejected
+        .catch(error =>{
+
+          //display the error message
+          modal.classList.remove('hidden');
+          modalMeso.innerText = error;
+
+          //revert heart icon 
+          btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
+          btn.classList.remove('activated');
+        } 
+       
+
+ }
+ else {
+  btn.querySelector('.like-glyph').innerText = EMPTY_HEART;
+  btn.classList.remove('activated');
+
+
   })
 })
 
